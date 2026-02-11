@@ -23,6 +23,12 @@
     --border-color: #1F6A75;
 }
 
+[data-theme="dark"] .time-cell,
+[data-theme="dark"] .fajr-time,
+[data-theme="dark"] .maghrib-time {
+    color: #ffffff;
+}
+
 /* ============================================
    Base Styles
    ============================================ */
