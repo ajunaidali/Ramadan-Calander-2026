@@ -693,7 +693,7 @@ tbody tr:hover {
     width: calc(100% - 50px);
     margin: 0 25px 25px 25px;
     padding: 15px;
-    background: #1F6A75;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
     color: var(--white);
     border: none;
     border-radius: 10px;
@@ -706,7 +706,7 @@ tbody tr:hover {
 }
 
 .change-city-card .submit-btn:hover {
-    background: #155158;
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(31, 106, 117, 0.4);
 }
