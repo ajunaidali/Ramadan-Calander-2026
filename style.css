@@ -108,9 +108,11 @@ body::before {
     align-items: center;
     gap: 8px;
     box-shadow: 0 4px 15px rgba(31, 106, 117, 0.2);
-    min-height: 44px;
-    min-width: 44px;
+    min-height: 48px;
+    min-width: 48px;
     -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .theme-toggle:active {
@@ -160,6 +162,8 @@ body::before {
     position: relative;
     z-index: 1;
     margin: 20px auto;
+    box-sizing: border-box;
+    min-height: auto;
 }
 
 .form-header {
@@ -196,7 +200,7 @@ body::before {
 .form-group input,
 .form-group select {
     width: 100%;
-    padding: 12px 15px;
+    padding: 14px 15px;
     border: 2px solid var(--border-color);
     border-radius: 10px;
     font-size: 1em;
@@ -207,7 +211,8 @@ body::before {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    min-height: 44px;
+    min-height: 48px;
+    box-sizing: border-box;
 }
 
 @media (max-width: 480px) {
@@ -698,18 +703,18 @@ tbody tr:hover {
     }
     
     th {
-        padding: 11px 6px;
+        padding: 12px 8px;
         font-size: 0.9em;
         white-space: nowrap;
     }
     
     td {
-        padding: 11px 6px;
+        padding: 12px 8px;
         font-size: 0.9em;
     }
 
     .time-cell {
-        font-size: 0.98em;
+        font-size: 0.95em;
         font-weight: 600;
     }
     
@@ -735,11 +740,13 @@ tbody tr:hover {
     }
     
     .theme-toggle {
-        top: 12px;
-        right: 12px;
+        top: 15px;
+        right: 15px;
         padding: 10px 15px;
         font-size: 0.85em;
         border-radius: 25px;
+        min-height: 44px;
+        min-width: 44px;
     }
     
     .theme-toggle span:last-child {
@@ -752,21 +759,24 @@ tbody tr:hover {
     
     .form-card {
         padding: 30px 25px;
-        margin: 20px;
+        margin: 20px auto;
         width: 90%;
         max-width: 100%;
+        box-sizing: border-box;
     }
     
     .welcome-card {
         padding: 40px 30px;
-        margin: 20px;
+        margin: 20px auto;
         width: 90%;
         max-width: 100%;
+        box-sizing: border-box;
     }
     
     .next-btn {
-        padding: 12px 30px;
+        padding: 14px 30px;
         font-size: 1em;
+        min-height: 48px;
     }
     
     header {
@@ -785,16 +795,18 @@ tbody tr:hover {
 @media (max-width: 600px) {
     .main-content {
         padding: 12px;
+        box-sizing: border-box;
     }
 
     header {
         padding: 20px 15px;
         margin-bottom: 25px;
         border-radius: 12px;
+        box-sizing: border-box;
     }
 
     .main-title {
-        font-size: 2.2em;
+        font-size: 2.1em;
         margin-bottom: 8px;
     }
     
@@ -808,32 +820,34 @@ tbody tr:hover {
     }
 
     .calendar-wrapper {
-        padding: 10px 5px;
-        margin: 0;
+        padding: 10px 0;
+        margin: 0 -12px;
         border-radius: 0;
         box-shadow: none;
         border: 1px solid var(--border-color);
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
+        box-sizing: border-box;
     }
 
     table {
-        font-size: 0.8em;
-        min-width: 900px;
+        font-size: 0.85em;
+        min-width: 950px;
     }
 
     th {
-        padding: 9px 5px;
+        padding: 10px 6px;
         font-size: 0.9em;
+        white-space: nowrap;
     }
 
     td {
-        padding: 9px 5px;
+        padding: 10px 6px;
         font-size: 0.9em;
     }
 
     .time-cell {
-        font-size: 0.95em;
+        font-size: 0.96em;
         font-weight: 600;
     }
 }
@@ -842,10 +856,17 @@ tbody tr:hover {
 @media (max-width: 480px) {
     * {
         -webkit-text-size-adjust: 100%;
+        box-sizing: border-box;
+    }
+
+    body {
+        -webkit-user-select: none;
+        user-select: none;
     }
 
     .main-content {
         padding: 10px;
+        box-sizing: border-box;
     }
 
     .form-title {
@@ -860,7 +881,7 @@ tbody tr:hover {
         padding: 25px 20px;
         margin: 15px auto;
         width: 95%;
-        min-width: 0;
+        box-sizing: border-box;
         max-width: 100%;
     }
     
@@ -874,25 +895,30 @@ tbody tr:hover {
     
     .form-group label {
         font-size: 0.9em;
-        margin-bottom: 6px;
+        margin-bottom: 8px;
+        display: block;
     }
     
     .form-group input,
     .form-group select {
-        padding: 11px 12px;
-        font-size: 16px; /* Prevents zoom on iOS */
+        padding: 12px 12px;
+        font-size: 16px;
         border-radius: 8px;
+        box-sizing: border-box;
+        min-height: 48px;
     }
     
     .submit-btn {
-        padding: 12px;
+        padding: 14px;
         font-size: 0.95em;
         width: 100%;
+        min-height: 48px;
+        box-sizing: border-box;
     }
     
     .bismillah-arabic {
         font-size: 1.4em;
-        line-height: 1.5;
+        line-height: 1.6;
         margin-bottom: 15px;
     }
     
@@ -910,15 +936,16 @@ tbody tr:hover {
         padding: 30px 20px;
         margin: 15px auto;
         width: 95%;
-        min-width: 0;
+        box-sizing: border-box;
         max-width: 100%;
     }
     
     .next-btn {
-        padding: 12px 25px;
+        padding: 14px 25px;
         font-size: 0.95em;
         width: 100%;
-        min-height: 44px;
+        min-height: 48px;
+        box-sizing: border-box;
     }
     
     .main-title {
@@ -948,12 +975,14 @@ tbody tr:hover {
         border: 1px solid var(--border-color);
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
+        box-sizing: border-box;
     }
     
     table {
         font-size: 0.85em;
-        min-width: 1000px;
+        min-width: 1050px;
         width: 100%;
+        box-sizing: border-box;
     }
     
     thead {
@@ -963,26 +992,26 @@ tbody tr:hover {
     }
     
     th {
-        padding: 10px 6px;
-        font-size: 0.9em;
+        padding: 11px 6px;
+        font-size: 0.85em;
         white-space: nowrap;
         letter-spacing: 0;
         font-weight: 700;
     }
     
     td {
-        padding: 10px 6px;
+        padding: 11px 6px;
         font-size: 0.9em;
         border: 1px solid var(--border-color);
     }
     
     .time-cell {
-        font-size: 1em;
+        font-size: 0.95em;
         font-weight: 600;
         font-family: 'Courier New', monospace;
     }
     
-    /* Hide less important columns on mobile */
+    /* Hide Day column on mobile */
     th:nth-child(1),
     td:nth-child(1) {
         display: none;
@@ -992,6 +1021,7 @@ tbody tr:hover {
         padding: 20px 12px;
         margin-bottom: 20px;
         border-radius: 10px;
+        box-sizing: border-box;
     }
     
     .dua-card {
@@ -1016,12 +1046,14 @@ tbody tr:hover {
     }
     
     .theme-toggle {
-        top: 10px;
-        right: 10px;
-        padding: 8px 12px;
+        top: 12px;
+        right: 12px;
+        padding: 10px 12px;
         font-size: 0.75em;
-        border-radius: 20px;
+        border-radius: 22px;
         gap: 5px;
+        min-height: 44px;
+        min-width: 44px;
     }
     
     .theme-toggle span:last-child {
@@ -1038,6 +1070,7 @@ tbody tr:hover {
         margin-top: 25px;
         font-size: 0.85em;
         border-radius: 0;
+        box-sizing: border-box;
     }
     
     .site-footer p {
@@ -1049,11 +1082,23 @@ tbody tr:hover {
 /* Very small mobile (380px and below) */
 @media (max-width: 380px) {
     .form-title {
-        font-size: 1.5em;
+        font-size: 1.6em;
     }
     
     .form-card {
         padding: 20px 18px;
+        width: 95%;
+        box-sizing: border-box;
+    }
+    
+    .form-group input,
+    .form-group select {
+        min-height: 48px;
+        font-size: 16px;
+    }
+    
+    .submit-btn {
+        min-height: 48px;
     }
     
     .bismillah-arabic {
@@ -1062,14 +1107,20 @@ tbody tr:hover {
     
     .welcome-card {
         padding: 25px 18px;
+        width: 95%;
+        box-sizing: border-box;
+    }
+    
+    .next-btn {
+        min-height: 48px;
     }
     
     .main-title {
-        font-size: 1.7em;
+        font-size: 1.8em;
     }
     
     .section-title {
-        font-size: 1.2em;
+        font-size: 1.3em;
     }
     
     .city-display {
@@ -1080,40 +1131,61 @@ tbody tr:hover {
         padding: 8px 0;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
+        box-sizing: border-box;
     }
     
     table {
-        font-size: 0.75em;
-        min-width: 1050px;
+        font-size: 0.8em;
+        min-width: 1080px;
     }
     
-    th, td {
-        padding: 8px 4px;
+    th {
+        padding: 9px 5px;
+        font-size: 0.85em;
+    }
+    
+    td {
+        padding: 9px 5px;
+        font-size: 0.85em;
     }
 
     .time-cell {
-        font-size: 1em;
+        font-size: 0.95em;
         font-weight: 600;
     }
     
     .theme-toggle {
-        padding: 7px 10px;
+        padding: 9px 10px;
         font-size: 0.7em;
+        min-height: 44px;
+        min-width: 44px;
     }
 }
 
 /* Landscape mobile orientation */
 @media (max-height: 600px) and (orientation: landscape) {
+    .form-container {
+        height: auto;
+        min-height: 100vh;
+    }
+    
     .form-card {
-        max-height: 85vh;
+        max-height: 90vh;
         overflow-y: auto;
         padding: 20px 25px;
+        box-sizing: border-box;
+    }
+    
+    .welcome-popup {
+        height: auto;
+        min-height: 100vh;
     }
     
     .welcome-card {
-        max-height: 85vh;
+        max-height: 90vh;
         overflow-y: auto;
         padding: 25px 30px;
+        box-sizing: border-box;
     }
 
     .form-group {
@@ -1125,8 +1197,22 @@ tbody tr:hover {
     }
 
     .calendar-wrapper {
-        max-height: 60vh;
+        max-height: 65vh;
         overflow-y: auto;
+        box-sizing: border-box;
+    }
+    
+    header {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .main-title {
+        font-size: 2em;
+    }
+    
+    .main-subtitle {
+        font-size: 1em;
     }
 }
 
