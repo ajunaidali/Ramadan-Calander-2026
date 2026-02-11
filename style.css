@@ -1,0 +1,580 @@
+/* ============================================
+   Color Theme Variables
+   ============================================ */
+:root {
+    --primary: #1F6A75;
+    --primary-dark: #155158;
+    --accent: #F49040;
+    --light-gray: #CED4D3;
+    --white: #ffffff;
+    --dark-text: #2d3436;
+    
+    /* Light mode (default) */
+    --bg-color: #f5f7fa;
+    --card-bg: #ffffff;
+    --text-color: #2d3436;
+    --border-color: #CED4D3;
+}
+
+[data-theme="dark"] {
+    --bg-color: #0f1a1c;
+    --card-bg: #1a2a2e;
+    --text-color: #ffffff;
+    --border-color: #1F6A75;
+}
+
+/* ============================================
+   Base Styles
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
+    position: relative;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    overflow-x: hidden;
+}
+
+/* Islamic Geometric Background Pattern */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(31, 106, 117, 0.03) 20px, rgba(31, 106, 117, 0.03) 40px),
+        repeating-linear-gradient(-45deg, transparent, transparent 20px, rgba(244, 144, 64, 0.02) 20px, rgba(244, 144, 64, 0.02) 40px);
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* ============================================
+   Theme Toggle Button
+   ============================================ */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--card-bg);
+    border: 2px solid var(--primary);
+    color: var(--text-color);
+    padding: 12px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(31, 106, 117, 0.2);
+}
+
+.theme-toggle:hover {
+    background: var(--primary);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(31, 106, 117, 0.4);
+}
+
+/* ============================================
+   User Information Form (First Screen)
+   ============================================ */
+.form-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    z-index: 100;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.form-container.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.form-card {
+    background: var(--card-bg);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.form-header {
+    margin-bottom: 30px;
+}
+
+.form-title {
+    font-family: 'Amiri', serif;
+    font-size: 3em;
+    color: var(--primary);
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.form-subtitle {
+    font-size: 1.2em;
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 0.95em;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 1em;
+    font-family: 'Poppins', sans-serif;
+    background: var(--card-bg);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(31, 106, 117, 0.1);
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(31, 106, 117, 0.3);
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(31, 106, 117, 0.4);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+/* ============================================
+   Welcome Pop Card
+   ============================================ */
+.welcome-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 200;
+    backdrop-filter: blur(5px);
+}
+
+.welcome-popup.show {
+    display: flex;
+    animation: fadeIn 0.5s ease;
+}
+
+.welcome-card {
+    background: var(--card-bg);
+    padding: 50px 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    max-width: 600px;
+    width: 90%;
+    animation: popIn 0.6s ease;
+    border: 3px solid var(--primary);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes popIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.bismillah-arabic {
+    font-family: 'Amiri', serif;
+    font-size: 2.5em;
+    color: var(--primary);
+    margin-bottom: 20px;
+    font-weight: 700;
+    line-height: 1.8;
+}
+
+.bismillah-english {
+    font-size: 1.1em;
+    color: var(--text-color);
+    margin-bottom: 30px;
+    font-style: italic;
+    line-height: 1.6;
+}
+
+.welcome-message {
+    font-size: 1.5em;
+    color: var(--accent);
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+.welcome-icon {
+    font-size: 1.2em;
+    margin-right: 10px;
+}
+
+.next-btn {
+    padding: 15px 40px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(31, 106, 117, 0.3);
+}
+
+.next-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(31, 106, 117, 0.4);
+}
+
+/* ============================================
+   Main Content
+   ============================================ */
+.main-content {
+    display: none;
+    position: relative;
+    z-index: 1;
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.main-content.show {
+    display: block;
+    animation: fadeInUp 0.6s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 30px 20px;
+    background: var(--card-bg);
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.main-title {
+    font-family: 'Amiri', serif;
+    font-size: 3.5em;
+    color: var(--primary);
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.main-subtitle {
+    font-size: 1.5em;
+    color: var(--accent);
+    font-weight: 600;
+}
+
+/* ============================================
+   Calendar Section
+   ============================================ */
+.calendar-section {
+    margin-bottom: 50px;
+}
+
+.section-title {
+    font-size: 2em;
+    color: var(--primary);
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.city-display {
+    font-size: 1.2em;
+    color: var(--text-color);
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.city-display span {
+    color: var(--accent);
+    text-transform: capitalize;
+}
+
+.calendar-wrapper {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+thead {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: var(--white);
+}
+
+th {
+    padding: 15px 10px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.95em;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+td {
+    padding: 12px 8px;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+}
+
+tbody tr {
+    background: var(--card-bg);
+}
+
+tbody tr:nth-child(even) {
+    background: rgba(31, 106, 117, 0.05);
+}
+
+tbody tr:hover {
+    background: rgba(31, 106, 117, 0.1);
+    transform: scale(1.01);
+}
+
+.current-day {
+    background: rgba(244, 144, 64, 0.2) !important;
+    border: 2px solid var(--accent) !important;
+    font-weight: 700;
+}
+
+.time-cell {
+    font-family: 'Courier New', monospace;
+    font-size: 0.95em;
+    font-weight: 500;
+}
+
+.fajr-time,
+.maghrib-time {
+    background: rgba(31, 106, 117, 0.15) !important;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* ============================================
+   Duas Section
+   ============================================ */
+.duas-section {
+    margin-bottom: 50px;
+}
+
+.duas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.dua-card {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.dua-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(31, 106, 117, 0.2);
+    border-color: var(--primary);
+}
+
+.dua-title {
+    font-size: 1.3em;
+    color: var(--primary);
+    margin-bottom: 20px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.dua-arabic {
+    font-family: 'Amiri', serif;
+    font-size: 1.4em;
+    color: var(--primary);
+    text-align: right;
+    direction: rtl;
+    margin-bottom: 20px;
+    line-height: 2;
+    font-weight: 400;
+}
+
+.dua-english {
+    font-size: 1em;
+    color: var(--text-color);
+    line-height: 1.8;
+    text-align: center;
+    font-style: italic;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+@media (max-width: 768px) {
+    .form-title {
+        font-size: 2em;
+    }
+    
+    .bismillah-arabic {
+        font-size: 1.8em;
+    }
+    
+    .main-title {
+        font-size: 2.5em;
+    }
+    
+    .section-title {
+        font-size: 1.5em;
+    }
+    
+    .calendar-wrapper {
+        padding: 15px;
+    }
+    
+    table {
+        font-size: 0.8em;
+    }
+    
+    th, td {
+        padding: 8px 4px;
+    }
+    
+    .duas-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .theme-toggle {
+        top: 10px;
+        right: 10px;
+        padding: 10px 15px;
+        font-size: 0.8em;
+    }
+    
+    .form-card {
+        padding: 30px 20px;
+    }
+    
+    .welcome-card {
+        padding: 40px 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-title {
+        font-size: 1.5em;
+    }
+    
+    .bismillah-arabic {
+        font-size: 1.5em;
+    }
+    
+    .main-title {
+        font-size: 2em;
+    }
+    
+    table {
+        font-size: 0.7em;
+    }
+    
+    th, td {
+        padding: 6px 2px;
+    }
+}
+
