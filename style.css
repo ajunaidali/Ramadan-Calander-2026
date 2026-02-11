@@ -40,10 +40,13 @@
     color: var(--text-color);
     font-weight: 500;
     border-top: 2px solid var(--border-color);
+    word-wrap: break-word;
 }
 
 .site-footer p {
     opacity: 0.8;
+    word-break: break-word;
+    margin: 0;
 }
 html {
     scroll-behavior: smooth;
@@ -58,6 +61,8 @@ body {
     position: relative;
     transition: background-color 0.3s ease, color 0.3s ease;
     overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
 }
 
 /* Islamic Geometric Background Pattern */
@@ -97,6 +102,13 @@ body::before {
     align-items: center;
     gap: 8px;
     box-shadow: 0 4px 15px rgba(31, 106, 117, 0.2);
+    min-height: 44px;
+    min-width: 44px;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.theme-toggle:active {
+    transform: scale(0.95);
 }
 
 .theme-toggle:hover {
@@ -121,6 +133,8 @@ body::before {
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
     z-index: 100;
     transition: opacity 0.5s ease, visibility 0.5s ease;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .form-container.hidden {
@@ -139,6 +153,7 @@ body::before {
     text-align: center;
     position: relative;
     z-index: 1;
+    margin: 20px auto;
 }
 
 .form-header {
@@ -186,6 +201,14 @@ body::before {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+    min-height: 44px;
+}
+
+@media (max-width: 480px) {
+    .form-group input,
+    .form-group select {
+        font-size: 16px; /* Prevents iOS keyboard zoom */
+    }
 }
 
 .form-group select {
@@ -231,7 +254,18 @@ button,
 .submit-btn,
 .next-btn {
     min-height: 44px;
+    min-width: 44px;
     -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    cursor: pointer;
+}
+
+input,
+select,
+textarea {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 /* ============================================
@@ -249,6 +283,9 @@ button,
     background: rgba(0, 0, 0, 0.7);
     z-index: 200;
     backdrop-filter: blur(5px);
+    padding: 20px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .welcome-popup.show {
@@ -263,9 +300,10 @@ button,
     box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
     text-align: center;
     max-width: 600px;
-    width: 90%;
+    width: 100%;
     animation: popIn 0.6s ease;
     border: 3px solid var(--primary);
+    margin: auto 20px;
 }
 
 @keyframes fadeIn {
@@ -345,6 +383,8 @@ button,
     padding: 20px;
     max-width: 1400px;
     margin: 0 auto;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .main-content.show {
@@ -370,6 +410,7 @@ header {
     background: var(--card-bg);
     border-radius: 15px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    word-break: break-word;
 }
 
 .main-title {
@@ -378,12 +419,14 @@ header {
     color: var(--primary);
     margin-bottom: 10px;
     font-weight: 700;
+    word-wrap: break-word;
 }
 
 .main-subtitle {
     font-size: 1.5em;
     color: var(--accent);
     font-weight: 600;
+    word-wrap: break-word;
 }
 
 /* ============================================
@@ -464,6 +507,9 @@ table {
 thead {
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
     color: var(--white);
+    position: sticky;
+    top: 0;
+    z-index: 5;
 }
 
 th {
@@ -504,7 +550,9 @@ tbody tr:hover {
 .time-cell {
     font-family: 'Courier New', monospace;
     font-size: 0.95em;
-    font-weight: 500;
+    font-weight: 700;
+    color: var(--primary);
+    background: rgba(31, 106, 117, 0.08);
 }
 
 .fajr-time,
@@ -525,6 +573,7 @@ tbody tr:hover {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 25px;
+    width: 100%;
 }
 
 .dua-card {
@@ -534,6 +583,9 @@ tbody tr:hover {
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     border: 2px solid transparent;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .dua-card:hover {
@@ -548,6 +600,7 @@ tbody tr:hover {
     margin-bottom: 20px;
     font-weight: 700;
     text-align: center;
+    word-break: break-word;
 }
 
 .dua-arabic {
@@ -559,6 +612,7 @@ tbody tr:hover {
     margin-bottom: 20px;
     line-height: 2;
     font-weight: 400;
+    word-wrap: break-word;
 }
 
 .dua-english {
@@ -569,16 +623,21 @@ tbody tr:hover {
     font-style: italic;
     padding-top: 20px;
     border-top: 1px solid var(--border-color);
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* ============================================
-   Responsive Design
+   Responsive Design - Mobile First
    ============================================ */
 
 /* Tablet and below (768px) */
 @media (max-width: 768px) {
     .main-content {
         padding: 15px;
+        max-width: 100%;
     }
 
     .form-title {
@@ -616,26 +675,36 @@ tbody tr:hover {
     
     .city-display {
         font-size: 1.1em;
+        padding: 10px 0;
     }
     
     .calendar-wrapper {
-        padding: 15px 10px;
-        margin: 0 -5px;
+        padding: 12px 5px;
+        margin: 0 -15px;
+        border-radius: 0;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
     
     table {
-        font-size: 0.75em;
-        min-width: 800px;
+        font-size: 0.82em;
+        min-width: 850px;
     }
     
     th {
-        padding: 10px 6px;
-        font-size: 0.85em;
+        padding: 11px 6px;
+        font-size: 0.9em;
+        white-space: nowrap;
     }
     
     td {
-        padding: 10px 5px;
-        font-size: 0.85em;
+        padding: 11px 6px;
+        font-size: 0.9em;
+    }
+
+    .time-cell {
+        font-size: 0.98em;
+        font-weight: 600;
     }
     
     .duas-grid {
@@ -660,24 +729,33 @@ tbody tr:hover {
     }
     
     .theme-toggle {
-        top: 10px;
-        right: 10px;
+        top: 12px;
+        right: 12px;
         padding: 10px 15px;
         font-size: 0.85em;
+        border-radius: 25px;
     }
     
     .theme-toggle span:last-child {
         display: none;
     }
+
+    .theme-toggle span:first-child {
+        display: inline;
+    }
     
     .form-card {
         padding: 30px 25px;
         margin: 20px;
+        width: 90%;
+        max-width: 100%;
     }
     
     .welcome-card {
         padding: 40px 30px;
         margin: 20px;
+        width: 90%;
+        max-width: 100%;
     }
     
     .next-btn {
@@ -697,8 +775,69 @@ tbody tr:hover {
     }
 }
 
+/* Mobile (600px and below) */
+@media (max-width: 600px) {
+    .main-content {
+        padding: 12px;
+    }
+
+    header {
+        padding: 20px 15px;
+        margin-bottom: 25px;
+        border-radius: 12px;
+    }
+
+    .main-title {
+        font-size: 2.2em;
+        margin-bottom: 8px;
+    }
+    
+    .main-subtitle {
+        font-size: 1.15em;
+    }
+
+    .section-title {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+    }
+
+    .calendar-wrapper {
+        padding: 10px 5px;
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
+        border: 1px solid var(--border-color);
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+        font-size: 0.8em;
+        min-width: 900px;
+    }
+
+    th {
+        padding: 9px 5px;
+        font-size: 0.9em;
+    }
+
+    td {
+        padding: 9px 5px;
+        font-size: 0.9em;
+    }
+
+    .time-cell {
+        font-size: 0.95em;
+        font-weight: 600;
+    }
+}
+
 /* Mobile (480px and below) */
 @media (max-width: 480px) {
+    * {
+        -webkit-text-size-adjust: 100%;
+    }
+
     .main-content {
         padding: 10px;
     }
@@ -713,23 +852,36 @@ tbody tr:hover {
     
     .form-card {
         padding: 25px 20px;
-        margin: 15px;
+        margin: 15px auto;
         width: 95%;
+        min-width: 0;
+        max-width: 100%;
+    }
+    
+    .form-header {
+        margin-bottom: 25px;
     }
     
     .form-group {
-        margin-bottom: 20px;
+        margin-bottom: 18px;
+    }
+    
+    .form-group label {
+        font-size: 0.9em;
+        margin-bottom: 6px;
     }
     
     .form-group input,
     .form-group select {
-        padding: 10px 12px;
-        font-size: 0.95em;
+        padding: 11px 12px;
+        font-size: 16px; /* Prevents zoom on iOS */
+        border-radius: 8px;
     }
     
     .submit-btn {
         padding: 12px;
-        font-size: 1em;
+        font-size: 0.95em;
+        width: 100%;
     }
     
     .bismillah-arabic {
@@ -750,14 +902,17 @@ tbody tr:hover {
     
     .welcome-card {
         padding: 30px 20px;
-        margin: 15px;
+        margin: 15px auto;
         width: 95%;
+        min-width: 0;
+        max-width: 100%;
     }
     
     .next-btn {
         padding: 12px 25px;
         font-size: 0.95em;
         width: 100%;
+        min-height: 44px;
     }
     
     .main-title {
@@ -774,43 +929,68 @@ tbody tr:hover {
     }
     
     .city-display {
-        font-size: 1em;
+        font-size: 0.95em;
         margin-bottom: 15px;
+        padding: 8px 0;
     }
     
     .calendar-wrapper {
-        padding: 10px 5px;
-        border-radius: 10px;
+        padding: 8px 0;
+        margin: -10px;
+        border-radius: 0;
+        box-shadow: none;
+        border: 1px solid var(--border-color);
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
     
     table {
-        font-size: 0.65em;
-        min-width: 700px;
+        font-size: 0.85em;
+        min-width: 1000px;
+        width: 100%;
+    }
+    
+    thead {
+        position: sticky;
+        top: 0;
+        z-index: 10;
     }
     
     th {
-        padding: 8px 4px;
-        font-size: 0.75em;
-        letter-spacing: 0.3px;
+        padding: 10px 6px;
+        font-size: 0.9em;
+        white-space: nowrap;
+        letter-spacing: 0;
+        font-weight: 700;
     }
     
     td {
-        padding: 8px 3px;
-        font-size: 0.75em;
+        padding: 10px 6px;
+        font-size: 0.9em;
+        border: 1px solid var(--border-color);
     }
     
     .time-cell {
-        font-size: 0.85em;
+        font-size: 1em;
+        font-weight: 600;
+        font-family: 'Courier New', monospace;
+    }
+    
+    /* Hide less important columns on mobile */
+    th:nth-child(1),
+    td:nth-child(1) {
+        display: none;
     }
     
     header {
-        padding: 20px 15px;
-        margin-bottom: 25px;
+        padding: 20px 12px;
+        margin-bottom: 20px;
         border-radius: 10px;
     }
     
     .dua-card {
         padding: 20px 15px;
+        border-radius: 12px;
     }
     
     .dua-title {
@@ -830,71 +1010,132 @@ tbody tr:hover {
     }
     
     .theme-toggle {
-        top: 8px;
-        right: 8px;
+        top: 10px;
+        right: 10px;
         padding: 8px 12px;
-        font-size: 0.8em;
+        font-size: 0.75em;
         border-radius: 20px;
+        gap: 5px;
     }
     
     .theme-toggle span:last-child {
         display: none;
+    }
+
+    .theme-toggle span:first-child {
+        display: inline;
+        font-size: 1.1em;
     }
     
     .site-footer {
         padding: 12px;
         margin-top: 25px;
         font-size: 0.85em;
+        border-radius: 0;
     }
     
     .site-footer p {
         font-size: 0.9em;
+        margin: 0;
     }
 }
 
-/* Very small mobile (360px and below) */
-@media (max-width: 360px) {
+/* Very small mobile (380px and below) */
+@media (max-width: 380px) {
     .form-title {
         font-size: 1.5em;
+    }
+    
+    .form-card {
+        padding: 20px 18px;
     }
     
     .bismillah-arabic {
         font-size: 1.2em;
     }
     
+    .welcome-card {
+        padding: 25px 18px;
+    }
+    
     .main-title {
-        font-size: 1.8em;
+        font-size: 1.7em;
     }
     
     .section-title {
         font-size: 1.2em;
     }
     
+    .city-display {
+        font-size: 0.9em;
+    }
+    
+    .calendar-wrapper {
+        padding: 8px 0;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
     table {
-        font-size: 0.6em;
-        min-width: 650px;
+        font-size: 0.75em;
+        min-width: 1050px;
     }
     
     th, td {
-        padding: 6px 2px;
+        padding: 8px 4px;
+    }
+
+    .time-cell {
+        font-size: 1em;
+        font-weight: 600;
     }
     
     .theme-toggle {
-        padding: 6px 10px;
-        font-size: 0.75em;
+        padding: 7px 10px;
+        font-size: 0.7em;
     }
 }
 
 /* Landscape mobile orientation */
-@media (max-width: 768px) and (orientation: landscape) {
+@media (max-height: 600px) and (orientation: landscape) {
     .form-card {
-        max-height: 90vh;
+        max-height: 85vh;
         overflow-y: auto;
+        padding: 20px 25px;
     }
     
     .welcome-card {
-        max-height: 90vh;
+        max-height: 85vh;
         overflow-y: auto;
+        padding: 25px 30px;
+    }
+
+    .form-group {
+        margin-bottom: 12px;
+    }
+
+    .section-title {
+        margin-bottom: 10px;
+    }
+
+    .calendar-wrapper {
+        max-height: 60vh;
+        overflow-y: auto;
+    }
+}
+
+/* Very large devices */
+@media (min-width: 1200px) {
+    .main-content {
+        padding: 40px 20px;
+    }
+
+    .calendar-section {
+        margin-bottom: 60px;
+    }
+
+    .main-title {
+        font-size: 4em;
     }
 }
 
