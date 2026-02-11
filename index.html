@@ -24,7 +24,6 @@
  <footer class="site-footer">
     <p>━━━❖ 𝙈𝘼𝘿𝙀 𝘽𝙔 𝙅𝙐𝙉𝘼𝙄𝘿 𝘼𝙇𝙄 ❖━━━</p>
 </footer>
-</div>
     <!-- User Information Form (First Screen) -->
     <div class="form-container" id="formContainer">
         <div class="form-card">
@@ -71,6 +70,31 @@
         </div>
     </div>
 
+    <!-- Change City Popup -->
+    <div class="change-city-popup" id="changeCityPopup">
+        <div class="change-city-card">
+            <div class="change-city-header">Choose your city</div>
+            <form id="changeCityForm">
+                <div class="form-group">
+                    <select id="changeCitySelect" name="changeCity" required>
+                        <option value="">Choose your city</option>
+                        <option value="karachi">Karachi</option>
+                        <option value="lahore">Lahore</option>
+                        <option value="islamabad">Islamabad</option>
+                        <option value="faisalabad">Faisalabad</option>
+                        <option value="rawalpindi">Rawalpindi</option>
+                        <option value="multan">Multan</option>
+                        <option value="peshawar">Peshawar</option>
+                        <option value="quetta">Quetta</option>
+                        <option value="hyderabad">Hyderabad</option>
+                        <option value="sialkot">Sialkot</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Submit</button>
+            </form>
+        </div>
+    </div>
+
     <!-- Main Content (Hidden Initially) -->
     <div class="main-content" id="mainContent">
         <!-- Header -->
@@ -82,7 +106,10 @@
         <!-- Section 1: Ramadan Calendar -->
         <section class="calendar-section" id="calendarSection">
             <h2 class="section-title">🗓️ Ramadan Calendar</h2>
-            <div class="city-display">City: <span id="displayCity"></span></div>
+            <div class="city-display-wrapper">
+                <div class="city-display">City: <span id="displayCity"></span></div>
+                <button class="change-city-btn" id="changeCityBtn">Change City</button>
+            </div>
             <div class="calendar-wrapper">
                 <table id="prayerTable">
                     <thead>

@@ -136,6 +136,10 @@ const tableBody = document.getElementById('tableBody');
 const themeToggle = document.getElementById('themeToggle');
 const themeIcon = document.getElementById('themeIcon');
 const themeText = document.getElementById('themeText');
+const changeCityBtn = document.getElementById('changeCityBtn');
+const changeCityPopup = document.getElementById('changeCityPopup');
+const changeCityForm = document.getElementById('changeCityForm');
+const changeCitySelect = document.getElementById('changeCitySelect');
 
 // ============================================
 // Form Submission Handler
@@ -249,6 +253,48 @@ function updateThemeButton(theme) {
         themeText.textContent = 'Light Mode';
     }
 }
+
+// ============================================
+// Change City Functionality
+// ============================================
+changeCityBtn.addEventListener('click', () => {
+    // Set current city in select dropdown
+    changeCitySelect.value = userCity;
+    // Show popup
+    changeCityPopup.classList.add('show');
+});
+
+// Close popup when clicking outside
+changeCityPopup.addEventListener('click', (e) => {
+    if (e.target === changeCityPopup) {
+        changeCityPopup.classList.remove('show');
+    }
+});
+
+// Handle change city form submission
+changeCityForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const newCity = changeCitySelect.value;
+    
+    if (!newCity) {
+        alert('Please select a city');
+        return;
+    }
+    
+    // Update city
+    userCity = newCity;
+    localStorage.setItem('userCity', userCity);
+    
+    // Update display
+    displayCity.textContent = prayerTimes[userCity].name;
+    
+    // Regenerate calendar with new city data
+    generateCalendar();
+    
+    // Hide popup
+    changeCityPopup.classList.remove('show');
+});
 
 // ============================================
 // Initialize on Page Load
