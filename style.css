@@ -36,6 +36,15 @@
     color: var(--white);
 }
 
+/* Titles and Arabic text should be white in dark mode only */
+[data-theme="dark"] .main-title,
+[data-theme="dark"] .form-title,
+[data-theme="dark"] .bismillah-arabic,
+[data-theme="dark"] .dua-title,
+[data-theme="dark"] .dua-arabic {
+    color: var(--white);
+}
+
 /* ============================================
    Base Styles
    ============================================ */
@@ -787,6 +796,16 @@ tbody tr:hover {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/* ============================================
+   Typing / Writing Animation
+   ============================================ */
+.typing {
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 /* ============================================

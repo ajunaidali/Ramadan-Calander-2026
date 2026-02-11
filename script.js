@@ -178,6 +178,9 @@ nextBtn.addEventListener('click', () => {
         displayCity.textContent = prayerTimes[userCity].name;
         generateCalendar();
         mainContent.classList.add('show');
+        // start typing animation for subtitle
+        const typingEl = document.getElementById('typingSubtitle');
+        if (typingEl) typeText(typingEl, typingEl.dataset.text, 60);
     }, 300);
 });
 
@@ -226,6 +229,24 @@ function generateCalendar() {
         
         tableBody.appendChild(row);
     });
+}
+
+// Typing animation helper
+function typeText(el, text, speed = 60) {
+    if (!el) return;
+    // ensure plain text
+    const finalText = text || el.dataset.text || el.textContent || '';
+    el.textContent = '';
+    // caret removed: no extra class added
+    let i = 0;
+    function step() {
+        if (i <= finalText.length) {
+            el.textContent = finalText.slice(0, i);
+            i++;
+            setTimeout(step, speed);
+        }
+    }
+    step();
 }
 
 // ============================================
@@ -312,6 +333,9 @@ document.addEventListener('DOMContentLoaded', () => {
         displayCity.textContent = prayerTimes[userCity].name;
         generateCalendar();
         mainContent.classList.add('show');
+        // start typing animation for subtitle when restoring state
+        const typingEl = document.getElementById('typingSubtitle');
+        if (typingEl) typeText(typingEl, typingEl.dataset.text, 60);
     }
     
     // Save user data when form is submitted
