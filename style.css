@@ -31,7 +31,20 @@
     padding: 0;
     box-sizing: border-box;
 }
+/* Footer */
+.site-footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    background: var(--card-bg);
+    color: var(--text-color);
+    font-weight: 500;
+    border-top: 2px solid var(--border-color);
+}
 
+.site-footer p {
+    opacity: 0.8;
+}
 html {
     scroll-behavior: smooth;
 }
@@ -170,6 +183,17 @@ body::before {
     background: var(--card-bg);
     color: var(--text-color);
     transition: all 0.3s ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.form-group select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%231F6A75' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 12px;
+    padding-right: 40px;
 }
 
 .form-group input:focus,
@@ -200,6 +224,14 @@ body::before {
 
 .submit-btn:active {
     transform: translateY(0);
+}
+
+/* Touch-friendly button sizes */
+button,
+.submit-btn,
+.next-btn {
+    min-height: 44px;
+    -webkit-tap-highlight-color: transparent;
 }
 
 /* ============================================
@@ -380,12 +412,47 @@ header {
     text-transform: capitalize;
 }
 
+/* Scroll indicator for mobile table */
+@media (max-width: 768px) {
+    .calendar-wrapper::after {
+        content: '← Scroll →';
+        display: block;
+        text-align: center;
+        color: var(--primary);
+        font-size: 0.8em;
+        margin-top: 10px;
+        opacity: 0.7;
+        font-weight: 600;
+    }
+}
+
 .calendar-wrapper {
     background: var(--card-bg);
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) var(--light-gray);
+}
+
+.calendar-wrapper::-webkit-scrollbar {
+    height: 8px;
+}
+
+.calendar-wrapper::-webkit-scrollbar-track {
+    background: var(--light-gray);
+    border-radius: 10px;
+}
+
+.calendar-wrapper::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 10px;
+}
+
+.calendar-wrapper::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
 }
 
 table {
@@ -507,74 +574,327 @@ tbody tr:hover {
 /* ============================================
    Responsive Design
    ============================================ */
+
+/* Tablet and below (768px) */
 @media (max-width: 768px) {
+    .main-content {
+        padding: 15px;
+    }
+
     .form-title {
-        font-size: 2em;
+        font-size: 2.2em;
+    }
+    
+    .form-subtitle {
+        font-size: 1.1em;
     }
     
     .bismillah-arabic {
         font-size: 1.8em;
+        line-height: 1.6;
+    }
+    
+    .bismillah-english {
+        font-size: 1em;
+    }
+    
+    .welcome-message {
+        font-size: 1.3em;
     }
     
     .main-title {
         font-size: 2.5em;
     }
     
+    .main-subtitle {
+        font-size: 1.3em;
+    }
+    
     .section-title {
-        font-size: 1.5em;
+        font-size: 1.6em;
+    }
+    
+    .city-display {
+        font-size: 1.1em;
     }
     
     .calendar-wrapper {
-        padding: 15px;
+        padding: 15px 10px;
+        margin: 0 -5px;
     }
     
     table {
-        font-size: 0.8em;
+        font-size: 0.75em;
+        min-width: 800px;
     }
     
-    th, td {
-        padding: 8px 4px;
+    th {
+        padding: 10px 6px;
+        font-size: 0.85em;
+    }
+    
+    td {
+        padding: 10px 5px;
+        font-size: 0.85em;
     }
     
     .duas-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .dua-card {
+        padding: 25px 20px;
+    }
+    
+    .dua-title {
+        font-size: 1.2em;
+    }
+    
+    .dua-arabic {
+        font-size: 1.2em;
+    }
+    
+    .dua-english {
+        font-size: 0.95em;
     }
     
     .theme-toggle {
         top: 10px;
         right: 10px;
         padding: 10px 15px;
-        font-size: 0.8em;
+        font-size: 0.85em;
+    }
+    
+    .theme-toggle span:last-child {
+        display: none;
     }
     
     .form-card {
-        padding: 30px 20px;
+        padding: 30px 25px;
+        margin: 20px;
     }
     
     .welcome-card {
-        padding: 40px 25px;
+        padding: 40px 30px;
+        margin: 20px;
+    }
+    
+    .next-btn {
+        padding: 12px 30px;
+        font-size: 1em;
+    }
+    
+    header {
+        padding: 25px 15px;
+        margin-bottom: 30px;
+    }
+    
+    .site-footer {
+        padding: 15px;
+        margin-top: 30px;
+        font-size: 0.9em;
     }
 }
 
+/* Mobile (480px and below) */
 @media (max-width: 480px) {
+    .main-content {
+        padding: 10px;
+    }
+
     .form-title {
-        font-size: 1.5em;
+        font-size: 1.8em;
+    }
+    
+    .form-subtitle {
+        font-size: 1em;
+    }
+    
+    .form-card {
+        padding: 25px 20px;
+        margin: 15px;
+        width: 95%;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-group input,
+    .form-group select {
+        padding: 10px 12px;
+        font-size: 0.95em;
+    }
+    
+    .submit-btn {
+        padding: 12px;
+        font-size: 1em;
     }
     
     .bismillah-arabic {
-        font-size: 1.5em;
+        font-size: 1.4em;
+        line-height: 1.5;
+        margin-bottom: 15px;
+    }
+    
+    .bismillah-english {
+        font-size: 0.9em;
+        margin-bottom: 20px;
+    }
+    
+    .welcome-message {
+        font-size: 1.1em;
+        margin-bottom: 25px;
+    }
+    
+    .welcome-card {
+        padding: 30px 20px;
+        margin: 15px;
+        width: 95%;
+    }
+    
+    .next-btn {
+        padding: 12px 25px;
+        font-size: 0.95em;
+        width: 100%;
     }
     
     .main-title {
         font-size: 2em;
     }
     
+    .main-subtitle {
+        font-size: 1.1em;
+    }
+    
+    .section-title {
+        font-size: 1.4em;
+        margin-bottom: 15px;
+    }
+    
+    .city-display {
+        font-size: 1em;
+        margin-bottom: 15px;
+    }
+    
+    .calendar-wrapper {
+        padding: 10px 5px;
+        border-radius: 10px;
+    }
+    
     table {
-        font-size: 0.7em;
+        font-size: 0.65em;
+        min-width: 700px;
+    }
+    
+    th {
+        padding: 8px 4px;
+        font-size: 0.75em;
+        letter-spacing: 0.3px;
+    }
+    
+    td {
+        padding: 8px 3px;
+        font-size: 0.75em;
+    }
+    
+    .time-cell {
+        font-size: 0.85em;
+    }
+    
+    header {
+        padding: 20px 15px;
+        margin-bottom: 25px;
+        border-radius: 10px;
+    }
+    
+    .dua-card {
+        padding: 20px 15px;
+    }
+    
+    .dua-title {
+        font-size: 1.1em;
+        margin-bottom: 15px;
+    }
+    
+    .dua-arabic {
+        font-size: 1.1em;
+        line-height: 1.8;
+        margin-bottom: 15px;
+    }
+    
+    .dua-english {
+        font-size: 0.9em;
+        padding-top: 15px;
+    }
+    
+    .theme-toggle {
+        top: 8px;
+        right: 8px;
+        padding: 8px 12px;
+        font-size: 0.8em;
+        border-radius: 20px;
+    }
+    
+    .theme-toggle span:last-child {
+        display: none;
+    }
+    
+    .site-footer {
+        padding: 12px;
+        margin-top: 25px;
+        font-size: 0.85em;
+    }
+    
+    .site-footer p {
+        font-size: 0.9em;
+    }
+}
+
+/* Very small mobile (360px and below) */
+@media (max-width: 360px) {
+    .form-title {
+        font-size: 1.5em;
+    }
+    
+    .bismillah-arabic {
+        font-size: 1.2em;
+    }
+    
+    .main-title {
+        font-size: 1.8em;
+    }
+    
+    .section-title {
+        font-size: 1.2em;
+    }
+    
+    table {
+        font-size: 0.6em;
+        min-width: 650px;
     }
     
     th, td {
         padding: 6px 2px;
+    }
+    
+    .theme-toggle {
+        padding: 6px 10px;
+        font-size: 0.75em;
+    }
+}
+
+/* Landscape mobile orientation */
+@media (max-width: 768px) and (orientation: landscape) {
+    .form-card {
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    
+    .welcome-card {
+        max-height: 90vh;
+        overflow-y: auto;
     }
 }
 
