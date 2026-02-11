@@ -29,6 +29,13 @@
     color: #ffffff;
 }
 
+/* Ensure Change City button uses white text in dark theme and reverts in light */
+[data-theme="dark"] .change-city-btn {
+    background: var(--card-bg);
+    border-color: var(--primary);
+    color: var(--white);
+}
+
 /* ============================================
    Base Styles
    ============================================ */
