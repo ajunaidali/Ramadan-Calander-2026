@@ -554,3 +554,36 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// ============================================
+// Mobile swipe indicator: fade-in and auto-hide
+// ============================================
+(function() {
+    function triggerSwipeHint() {
+        const ind = document.getElementById('swipeIndicator');
+        if (!ind) return;
+        if (window.innerWidth >= 768) return; // only mobile
+
+        // show with a tiny delay for nicer timing
+        ind.classList.add('show');
+
+        // auto-hide after ~4.5s
+        const hideAfter = 4500;
+        setTimeout(() => {
+            ind.classList.add('hide');
+        }, hideAfter);
+
+        // remove element after hide transition completes
+        ind.addEventListener('transitionend', function onEnd(e) {
+            if (ind.classList.contains('hide')) {
+                ind.removeEventListener('transitionend', onEnd);
+                try { ind.remove(); } catch (err) {}
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // slight defer so it doesn't clash with other entry animations
+        setTimeout(triggerSwipeHint, 300);
+    });
+})();
+
