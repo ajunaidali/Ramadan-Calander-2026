@@ -1545,9 +1545,9 @@ tbody tr:hover {
         position: relative;
         width: calc(100% - 40px);
         max-width: 460px;
-        height: 2px;
-        background: rgba(31, 106, 117, 0.12);
-        border-radius: 2px;
+        height: 40px;
+        
+        border-radius: 8px; 
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1557,12 +1557,12 @@ tbody tr:hover {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        background: var(--card-bg);
-        padding: 6px 14px;
+        
+        padding: 10px 20px;
         font-size: 0.95rem;
-        color: var(--primary);
-        border-radius: 999px;
-        box-shadow: 0 6px 20px rgba(31,106,117,0.12);
+        color: white;
+        border-radius: 6px;
+        
         text-shadow: 0 0 10px rgba(31,106,117,0.06);
         font-weight: 600;
         display: inline-flex;
@@ -1573,7 +1573,7 @@ tbody tr:hover {
     .swipe-text .arrow {
         display: inline-block;
         font-size: 0.95rem;
-        color: var(--primary);
+        color: white;
         opacity: 0.95;
         will-change: transform;
     }
