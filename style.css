@@ -1560,7 +1560,7 @@ tbody tr:hover {
         
         padding: 10px 20px;
         font-size: 0.95rem;
-        color: white;
+        color: var(--primary);
         border-radius: 6px;
         
         text-shadow: 0 0 10px rgba(31,106,117,0.06);
@@ -1573,9 +1573,15 @@ tbody tr:hover {
     .swipe-text .arrow {
         display: inline-block;
         font-size: 0.95rem;
-        color: white;
+        color: var(--primary);
         opacity: 0.95;
         will-change: transform;
+    }
+
+    /* Dark theme: white color for swipe indicator */
+    [data-theme="dark"] .swipe-text,
+    [data-theme="dark"] .swipe-text .arrow {
+        color: var(--white);
     }
 
     @keyframes arrowMoveLeft {

@@ -481,26 +481,35 @@ const downloadBtn = document.getElementById('downloadBtn');
 
 downloadBtn.addEventListener('click', async () => {
     try {
-        // Get the calendar section (header + table)
-        const calendarSection = document.getElementById('calendarSection');
+        // Get only the calendar wrapper (table container)
+        const calendarWrapper = document.querySelector('.calendar-wrapper');
+        
+        if (!calendarWrapper) {
+            alert('Calendar not found. Please try again.');
+            return;
+        }
         
         // Create a temporary container to hold the content we want to capture
         const tempContainer = document.createElement('div');
         tempContainer.style.position = 'fixed';
         tempContainer.style.left = '-9999px';
         tempContainer.style.top = '-9999px';
-        tempContainer.style.background = 'white';
+        tempContainer.style.background = getComputedStyle(document.body).getPropertyValue('--card-bg') || '#ffffff';
         tempContainer.style.padding = '20px';
         tempContainer.style.borderRadius = '10px';
         
-        // Clone the section
-        const clonedSection = calendarSection.cloneNode(true);
-        tempContainer.appendChild(clonedSection);
+        // Clone only the calendar wrapper (table)
+        const clonedWrapper = calendarWrapper.cloneNode(true);
+        tempContainer.appendChild(clonedWrapper);
         document.body.appendChild(tempContainer);
+        
+        // Get background color based on current theme
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+        const backgroundColor = currentTheme === 'dark' ? '#1a2a2e' : '#ffffff';
         
         // Capture as image
         const canvas = await html2canvas(tempContainer, {
-            backgroundColor: '#ffffff',
+            backgroundColor: backgroundColor,
             scale: 2,
             useCORS: true,
             logging: false
