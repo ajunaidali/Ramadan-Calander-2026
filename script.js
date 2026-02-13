@@ -475,6 +475,58 @@ changeCityForm.addEventListener('submit', (e) => {
 });
 
 // ============================================
+// Download Calendar Functionality
+// ============================================
+const downloadBtn = document.getElementById('downloadBtn');
+
+downloadBtn.addEventListener('click', async () => {
+    try {
+        // Get the calendar section (header + table)
+        const calendarSection = document.getElementById('calendarSection');
+        
+        // Create a temporary container to hold the content we want to capture
+        const tempContainer = document.createElement('div');
+        tempContainer.style.position = 'fixed';
+        tempContainer.style.left = '-9999px';
+        tempContainer.style.top = '-9999px';
+        tempContainer.style.background = 'white';
+        tempContainer.style.padding = '20px';
+        tempContainer.style.borderRadius = '10px';
+        
+        // Clone the section
+        const clonedSection = calendarSection.cloneNode(true);
+        tempContainer.appendChild(clonedSection);
+        document.body.appendChild(tempContainer);
+        
+        // Capture as image
+        const canvas = await html2canvas(tempContainer, {
+            backgroundColor: '#ffffff',
+            scale: 2,
+            useCORS: true,
+            logging: false
+        });
+        
+        // Remove temporary container
+        document.body.removeChild(tempContainer);
+        
+        // Convert canvas to blob and download
+        canvas.toBlob((blob) => {
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `Ramadan_Calendar_2026_${prayerTimes[userCity].name}.png`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        });
+    } catch (error) {
+        console.error('Error downloading calendar:', error);
+        alert('Failed to download calendar. Please try again.');
+    }
+});
+
+// ============================================
 // Initialize on Page Load
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {

@@ -743,6 +743,42 @@ tbody tr:hover {
 }
 
 /* ============================================
+   Download Button
+   ============================================ */
+.download-section {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.download-btn {
+    background: linear-gradient(135deg, var(--accent) 0%, #f5851f 100%);
+    color: var(--white);
+    border: none;
+    padding: 14px 35px;
+    font-size: 1.1em;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(244, 144, 64, 0.3);
+    -webkit-tap-highlight-color: transparent;
+    min-height: 48px;
+}
+
+.download-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(244, 144, 64, 0.5);
+    background: linear-gradient(135deg, #f5851f 0%, #e86000 100%);
+}
+
+.download-btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(244, 144, 64, 0.3);
+}
+
+/* ============================================
    Duas Section
    ============================================ */
 .duas-section {
