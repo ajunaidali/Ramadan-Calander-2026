@@ -8,13 +8,134 @@ function getDayName(dateString) {
 }
 
 // ============================================
+// Helper function to format time from 24h to 12h
+// ============================================
+function formatTime(time24) {
+    const [hours, minutes] = time24.split(':');
+    const hour = parseInt(hours);
+    const ampm = hour >= 12 ? 'PM' : 'AM';
+    const hour12 = hour % 12 || 12;
+    return `${hour12}:${minutes} ${ampm}`;
+}
+
+// ============================================
+// Fetch prayer times from AlAdhan API
+// ============================================
+async function fetchPrayerTimesFromAlAdhan(city, country = 'Pakistan') {
+    try {
+        // Ramadan 2026: Feb 18 to March 19 (30 days)
+        const startDate = new Date('2026-02-18T00:00:00');
+        const endDate = new Date('2026-03-19T23:59:59');
+        const times = [];
+        
+        // City mapping for AlAdhan API
+        const cityMapping = {
+            'karachi': 'Karachi',
+            'lahore': 'Lahore',
+            'islamabad': 'Islamabad',
+            'faisalabad': 'Faisalabad',
+            'rawalpindi': 'Rawalpindi',
+            'multan': 'Multan',
+            'peshawar': 'Peshawar',
+            'quetta': 'Quetta',
+            'hyderabad': 'Hyderabad',
+            'sialkot': 'Sialkot'
+        };
+        
+        const apiCity = cityMapping[city] || city;
+        
+        // Fetch calendar for February (Ramadan starts Feb 18)
+        const febResponse = await fetch(`https://api.aladhan.com/v1/calendarByCity/2026/2?city=${encodeURIComponent(apiCity)}&country=${encodeURIComponent(country)}&method=1`);
+        const febData = await febResponse.json();
+        
+        let ramadanDay = 1;
+        
+        if (febData.code === 200 && febData.data) {
+            // Process February data (starting from Feb 18)
+            const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            
+            febData.data.forEach(day => {
+                const dateStr = day.date.gregorian.date;
+                const date = new Date(dateStr);
+                
+                // Only include dates from Feb 18 onwards
+                if (date >= startDate && date.getMonth() === 1) { // February is month 1
+                    const dateFormatted = `${monthNames[date.getMonth()]} ${date.getDate().toString().padStart(2, '0')}`;
+                    const dayName = dayNames[date.getDay()];
+                    
+                    const timings = day.timings;
+                    times.push({
+                        day: ramadanDay,
+                        date: dateFormatted,
+                        dayName: dayName,
+                        ramadanDay: ramadanDay,
+                        fajr: formatTime(timings.Fajr.split(' ')[0]),
+                        dhuhr: formatTime(timings.Dhuhr.split(' ')[0]),
+                        asr: formatTime(timings.Asr.split(' ')[0]),
+                        maghrib: formatTime(timings.Maghrib.split(' ')[0]),
+                        isha: formatTime(timings.Isha.split(' ')[0]),
+                        sehri: formatTime(timings.Fajr.split(' ')[0]),
+                        iftar: formatTime(timings.Maghrib.split(' ')[0])
+                    });
+                    ramadanDay++;
+                }
+            });
+        }
+        
+        // Fetch March data if needed
+        if (ramadanDay <= 30) {
+            const marchResponse = await fetch(`https://api.aladhan.com/v1/calendarByCity/2026/3?city=${encodeURIComponent(apiCity)}&country=${encodeURIComponent(country)}&method=1`);
+            const marchData = await marchResponse.json();
+            
+            if (marchData.code === 200 && marchData.data) {
+                const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                
+                marchData.data.forEach(day => {
+                    const dateStr = day.date.gregorian.date;
+                    const date = new Date(dateStr);
+                    
+                    // Only include dates up to March 19
+                    if (date <= endDate && date.getMonth() === 2) { // March is month 2
+                        const dateFormatted = `${monthNames[date.getMonth()]} ${date.getDate().toString().padStart(2, '0')}`;
+                        const dayName = dayNames[date.getDay()];
+                        
+                        const timings = day.timings;
+                        times.push({
+                            day: ramadanDay,
+                            date: dateFormatted,
+                            dayName: dayName,
+                            ramadanDay: ramadanDay,
+                            fajr: formatTime(timings.Fajr.split(' ')[0]),
+                            dhuhr: formatTime(timings.Dhuhr.split(' ')[0]),
+                            asr: formatTime(timings.Asr.split(' ')[0]),
+                            maghrib: formatTime(timings.Maghrib.split(' ')[0]),
+                            isha: formatTime(timings.Isha.split(' ')[0]),
+                            sehri: formatTime(timings.Fajr.split(' ')[0]),
+                            iftar: formatTime(timings.Maghrib.split(' ')[0])
+                        });
+                        ramadanDay++;
+                    }
+                });
+            }
+        }
+        
+        return times.length > 0 ? times : null;
+    } catch (error) {
+        console.error(`Error fetching prayer times for ${city}:`, error);
+        return null;
+    }
+}
+
+// ============================================
 // Prayer Times Data for Different Cities
 // ============================================
 const prayerTimes = {
     karachi: {
         name: 'Karachi',
         times: [
-            { day: 1, date: 'Feb 19', ramadanDay: 1, fajr: '5:47 AM', dhuhr: '12:46 PM', asr: '4:51 PM', maghrib: '6:28 PM', isha: '7:45 PM', sehri: '5:47 AM', iftar: '6:28 PM' },
+            { day: 1, date: 'Feb 18', ramadanDay: 1, dayName: 'Wednesday', fajr: '5:47 AM', dhuhr: '12:46 PM', asr: '4:51 PM', maghrib: '6:28 PM', isha: '7:45 PM', sehri: '5:47 AM', iftar: '6:28 PM' },
             { day: 2, date: 'Feb 20', ramadanDay: 2, fajr: '5:46 AM', dhuhr: '12:46 PM', asr: '4:52 PM', maghrib: '6:29 PM', isha: '7:45 PM', sehri: '5:46 AM', iftar: '6:29 PM' },
             { day: 3, date: 'Feb 21', ramadanDay: 3, fajr: '5:45 AM', dhuhr: '12:45 PM', asr: '4:52 PM', maghrib: '6:30 PM', isha: '7:46 PM', sehri: '5:45 AM', iftar: '6:30 PM' },
             { day: 4, date: 'Feb 22', ramadanDay: 4, fajr: '5:45 AM', dhuhr: '12:45 PM', asr: '4:53 PM', maghrib: '6:30 PM', isha: '7:46 PM', sehri: '5:45 AM', iftar: '6:30 PM' },
@@ -43,7 +164,7 @@ const prayerTimes = {
             { day: 27, date: 'Mar 17', ramadanDay: 27, fajr: '5:22 AM', dhuhr: '12:40 PM', asr: '5:02 PM', maghrib: '6:43 PM', isha: '7:58 PM', sehri: '5:22 AM', iftar: '6:43 PM' },
             { day: 28, date: 'Mar 18', ramadanDay: 28, fajr: '5:21 AM', dhuhr: '12:40 PM', asr: '5:03 PM', maghrib: '6:43 PM', isha: '7:59 PM', sehri: '5:21 AM', iftar: '6:43 PM' },
             { day: 29, date: 'Mar 19', ramadanDay: 29, fajr: '5:20 AM', dhuhr: '12:40 PM', asr: '5:03 PM', maghrib: '6:43 PM', isha: '7:59 PM', sehri: '5:20 AM', iftar: '6:43 PM' },
-            { day: 30, date: 'Mar 20', ramadanDay: 30, fajr: '5:19 AM', dhuhr: '12:39 PM', asr: '5:04 PM', maghrib: '6:44 PM', isha: '8:00 PM', sehri: '5:19 AM', iftar: '6:44 PM' }
+            { day: 30, date: 'Mar 19', ramadanDay: 30, dayName: 'Thursday', fajr: '5:19 AM', dhuhr: '12:39 PM', asr: '5:04 PM', maghrib: '6:44 PM', isha: '8:00 PM', sehri: '5:19 AM', iftar: '6:44 PM' }
         ]
     },
     lahore: {
@@ -327,14 +448,21 @@ userForm.addEventListener('submit', (e) => {
 // ============================================
 // Next Button Handler (Welcome Popup)
 // ============================================
-nextBtn.addEventListener('click', () => {
+nextBtn.addEventListener('click', async () => {
     // Hide welcome popup
     welcomePopup.classList.remove('show');
     
     // Show main content after animation
-    setTimeout(() => {
+    setTimeout(async () => {
         welcomePopup.style.display = 'none';
         displayCity.textContent = prayerTimes[userCity].name;
+        
+        // Try to load prayer times from API
+        const apiTimes = await fetchPrayerTimesFromAlAdhan(userCity);
+        if (apiTimes && apiTimes.length > 0) {
+            prayerTimes[userCity].times = apiTimes;
+        }
+        
         generateCalendar();
         mainContent.classList.add('show');
         // start typing animation for subtitle
@@ -360,23 +488,23 @@ function generateCalendar() {
     cityData.times.forEach((day, index) => {
         const row = document.createElement('tr');
         
-        // Check if this is today (simplified check - you can enhance this)
-        const isToday = index === 0; // For demo, highlight first day. You can add proper date logic
-        
         // Parse date to check if it's today
         const dayDate = day.date.split(' ');
         const dayNum = parseInt(dayDate[1]);
         const isCurrentDay = (dayNum === currentDate && dayDate[0] === 'Feb' && currentMonth === 1) ||
                             (dayNum === currentDate && dayDate[0] === 'Mar' && currentMonth === 2);
         
-        if (isCurrentDay || isToday) {
+        if (isCurrentDay) {
             row.classList.add('current-day');
         }
+        
+        // Use dayName from API if available, otherwise calculate it
+        const dayName = day.dayName || getDayName(day.date);
         
         row.innerHTML = `
             <td>${day.ramadanDay}</td>
             <td>${day.date}</td>
-            <td>${getDayName(day.date)}</td>
+            <td>${dayName}</td>
             <td class="fajr-time time-cell">${day.fajr}</td>
             <td class="time-cell">${day.dhuhr}</td>
             <td class="time-cell">${day.asr}</td>
@@ -450,7 +578,7 @@ changeCityPopup.addEventListener('click', (e) => {
 });
 
 // Handle change city form submission
-changeCityForm.addEventListener('submit', (e) => {
+changeCityForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     
     const newCity = changeCitySelect.value;
@@ -466,6 +594,12 @@ changeCityForm.addEventListener('submit', (e) => {
     
     // Update display
     displayCity.textContent = prayerTimes[userCity].name;
+    
+    // Try to load prayer times from API
+    const apiTimes = await fetchPrayerTimesFromAlAdhan(userCity);
+    if (apiTimes && apiTimes.length > 0) {
+        prayerTimes[userCity].times = apiTimes;
+    }
     
     // Regenerate calendar with new city data
     generateCalendar();
@@ -538,7 +672,7 @@ downloadBtn.addEventListener('click', async () => {
 // ============================================
 // Initialize on Page Load
 // ============================================
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     // Check if user has already submitted form (for page refresh)
     const savedName = localStorage.getItem('userName');
     const savedCity = localStorage.getItem('userCity');
@@ -549,6 +683,13 @@ document.addEventListener('DOMContentLoaded', () => {
         formContainer.classList.add('hidden');
         welcomePopup.style.display = 'none';
         displayCity.textContent = prayerTimes[userCity].name;
+        
+        // Try to load prayer times from API
+        const apiTimes = await fetchPrayerTimesFromAlAdhan(userCity);
+        if (apiTimes && apiTimes.length > 0) {
+            prayerTimes[userCity].times = apiTimes;
+        }
+        
         generateCalendar();
         mainContent.classList.add('show');
         // start typing animation for subtitle when restoring state
